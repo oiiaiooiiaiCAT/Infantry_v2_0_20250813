@@ -27,7 +27,6 @@
 
 extern uint8_t usart6_buf[2][USART_RX_BUF_LENGHT];
 
-
 //extern void referee_usart_task(void const * argument);
 extern void referee_usart_task(void);
 
