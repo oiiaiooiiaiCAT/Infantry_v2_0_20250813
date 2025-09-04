@@ -39,8 +39,6 @@
 #include "bsp_can.h"
 #include "bsp_delay.h"
 #include "bsp_usart.h"
-#include "remote_control.h"
-
 #include "calibrate_task.h"
 #include "chassis_task.h"
 #include "detect_task.h"
@@ -48,9 +46,12 @@
 #include "INS_task.h"
 #include "led_flow_task.h"
 #include "oled_task.h"
+#include "referee.h"
 #include "referee_usart_task.h"
+#include "remote_control.h"
 #include "usb_task.h"
 #include "voltage_task.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -137,8 +138,9 @@ int main(void)
   MX_TIM10_Init();
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
-  MX_IWDG_Init();
+//  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
+	usart6_init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
 
 	can_filter_init();
 	delay_init();
@@ -148,27 +150,28 @@ int main(void)
 	usart1_init();
 	usart1_receive();
 	#ifdef gimbal_board
-	usart6_init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
+		usart6_init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
 	#endif // DEBUG
 
-	HAL_IWDG_Refresh(&hiwdg);
+//	HAL_IWDG_Refresh(&hiwdg);
 //	usart1_tx_dma_init();
 		
 		
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
+//  MX_FREERTOS_Init();
 
   /* Start scheduler */
-  osKernelStart();
-
+//  osKernelStart();
+	
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		referee_usart_task();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

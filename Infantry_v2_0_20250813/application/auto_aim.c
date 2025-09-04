@@ -122,10 +122,10 @@ void auto_aim(uint8_t* data_send_from_pc)
 					gimbal_motor_absolute_angle_control(&gimbal_control.gimbal_yaw_motor);
 			}
 
-			CAN_cmd_gimbal(gimbal_control.gimbal_yaw_motor.given_current,
-										 gimbal_control.gimbal_pitch_motor.given_current,
-										 shoot_can_set_current,
-										 0);
+			CAN_cmd_GIMB_6020(gimbal_control.gimbal_yaw_motor.given_current, 
+												gimbal_control.gimbal_pitch_motor.given_current, 
+												0, 0);
+			CAN_cmd_GIMB_FP(shoot_can_set_current, shoot_can_set_current, 0, 0);
 		}
 	}
     // ...

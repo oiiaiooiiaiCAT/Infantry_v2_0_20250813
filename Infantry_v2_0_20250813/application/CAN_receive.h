@@ -21,6 +21,7 @@
 #ifndef CAN_RECEIVE_H
 #define CAN_RECEIVE_H
 
+#include "main.h"
 #include "struct_typedef.h"
 #include "remote_control.h"
 
@@ -69,7 +70,7 @@ extern const MOTOR_MEASURE_t *get_chassis_motor_measure_point(uint8_t i);
 #endif
 
 
-#ifdef gimbal_board
+//#ifdef gimbal_board
 #define GIMBAL_3508_CAN 	hcan1  //2p
 #define GIMBAL_6020_CAN 	hcan2  //4p
 
@@ -93,6 +94,6 @@ extern void CAN_cmd_GIMB_6020(int16_t yaw, int16_t pitch, int16_t shoot, int16_t
 extern const MOTOR_MEASURE_t *get_pluck_motor_measure_point(void);
 extern const MOTOR_MEASURE_t *get_yaw_gimbal_motor_measure_point(void);
 extern const MOTOR_MEASURE_t *get_pitch_gimbal_motor_measure_point(void);
-#endif // DEBUG
+//#endif // DEBUG
 
 #endif

@@ -19,10 +19,7 @@
 	********************************************************************************/
 
 #include "CAN_receive.h"
-
 #include "cmsis_os.h"
-
-#include "main.h"
 #include "bsp_rng.h"
 #include "bsp_usart.h"
 #include "detect_task.h"
@@ -147,7 +144,7 @@ const MOTOR_MEASURE_t *get_chassis_motor_measure_point(uint8_t i)
 #endif // DEBUG
 
 
-#ifdef gimbal_board
+//#ifdef gimbal_board
 static CAN_TxHeaderTypeDef  gimbal_tx_message;
 static MOTOR_MEASURE_t motor_gimb[3];	//云台上有5个电机(没算那两个摩擦轮电机)
 
@@ -264,4 +261,4 @@ const MOTOR_MEASURE_t *get_pitch_gimbal_motor_measure_point(void)
 {
 	return &motor_gimb[1];
 }
-#endif // DEBUG
+//#endif // DEBUG

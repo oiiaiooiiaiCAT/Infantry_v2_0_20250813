@@ -99,9 +99,9 @@ void oled_task(void const * argument)
                     OLED_printf(3, 2, "%d", get_battery_percentage());
                 }
 
-                OLED_show_string(90, 27, "DBUS");
+                OLED_show_string(90, 27, (uint8_t *)"DBUS");
                 OLED_show_graphic(115, 27, &check_box[error_list_local[DBUS_TOE].error_exist]);
-                for(i = CHASSIS_MOTOR1_TOE; i < TRIGGER_MOTOR_TOE + 1; i++)
+                for(i = CHASSIS_MOTOR1_TOE; i < PLUCK_MOTOR_TOE + 1; i++)
                 {
                     show_col = ((i-1) * 32) % 128;
                     show_row = 15 + (i-1) / 4 * 12;
