@@ -222,5 +222,3 @@ void USART6_IRQHandler(void)
   }
   #endif // DEBUG
 }
-
-

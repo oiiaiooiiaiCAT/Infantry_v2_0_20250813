@@ -45,42 +45,42 @@ void usb_task(void const * argument)
 	while(1)
 	{
 		osDelay(1000);
-		usb_printf(
-			"******************************\r\n\
-			voltage percentage:%d%% \r\n\
-			DBUS:%s\r\n\
-			chassis motor1:%s\r\n\
-			chassis motor2:%s\r\n\
-			chassis motor3:%s\r\n\
-			chassis motor4:%s\r\n\
-			yaw motor:%s\r\n\
-			pitch motor:%s\r\n\
-			trigger motor:%s\r\n\
-			gyro sensor:%s\r\n\
-			accel sensor:%s\r\n\
-			mag sensor:%s\r\n\
-			referee usart:%s\r\n\
-			gimbal_can_send_data:%s\r\n\
-			chassis_can_send_data:%s\r\n\
-			sbus_rx_data:%s\r\n\
-			******************************\r\n",
-			get_battery_percentage(), 
-			status[error_list_usb_local[DBUS_TOE].error_exist],
-			status[error_list_usb_local[CHASSIS_MOTOR1_TOE].error_exist],
-			status[error_list_usb_local[CHASSIS_MOTOR2_TOE].error_exist],
-			status[error_list_usb_local[CHASSIS_MOTOR3_TOE].error_exist],
-			status[error_list_usb_local[CHASSIS_MOTOR4_TOE].error_exist],
-			status[error_list_usb_local[YAW_GIMBAL_MOTOR_TOE].error_exist],
-			status[error_list_usb_local[PITCH_GIMBAL_MOTOR_TOE].error_exist],
-			status[error_list_usb_local[TRIGGER_MOTOR_TOE].error_exist],
-			status[error_list_usb_local[BOARD_GYRO_TOE].error_exist],
-			status[error_list_usb_local[BOARD_ACCEL_TOE].error_exist],
-			status[error_list_usb_local[BOARD_MAG_TOE].error_exist],
-			status[error_list_usb_local[REFEREE_TOE].error_exist],
-			gimbal_can_send_data[0],
-			chassis_can_send_data[0],
-			sbus_rx_buf[0]
-		);
+//		usb_printf(
+//			"******************************\r\n\
+//			voltage percentage:%d%% \r\n\
+//			DBUS:%s\r\n\
+//			chassis motor1:%s\r\n\
+//			chassis motor2:%s\r\n\
+//			chassis motor3:%s\r\n\
+//			chassis motor4:%s\r\n\
+//			yaw motor:%s\r\n\
+//			pitch motor:%s\r\n\
+//			trigger motor:%s\r\n\
+//			gyro sensor:%s\r\n\
+//			accel sensor:%s\r\n\
+//			mag sensor:%s\r\n\
+//			referee usart:%s\r\n\
+//			gimbal_can_send_data:%s\r\n\
+//			chassis_can_send_data:%s\r\n\
+//			sbus_rx_data:%s\r\n\
+//			******************************\r\n",
+//			get_battery_percentage(), 
+//			status[error_list_usb_local[DBUS_TOE].error_exist],
+//			status[error_list_usb_local[CHASSIS_MOTOR1_TOE].error_exist],
+//			status[error_list_usb_local[CHASSIS_MOTOR2_TOE].error_exist],
+//			status[error_list_usb_local[CHASSIS_MOTOR3_TOE].error_exist],
+//			status[error_list_usb_local[CHASSIS_MOTOR4_TOE].error_exist],
+//			status[error_list_usb_local[YAW_GIMBAL_MOTOR_TOE].error_exist],
+//			status[error_list_usb_local[PITCH_GIMBAL_MOTOR_TOE].error_exist],
+//			status[error_list_usb_local[TRIGGER_MOTOR_TOE].error_exist],
+//			status[error_list_usb_local[BOARD_GYRO_TOE].error_exist],
+//			status[error_list_usb_local[BOARD_ACCEL_TOE].error_exist],
+//			status[error_list_usb_local[BOARD_MAG_TOE].error_exist],
+//			status[error_list_usb_local[REFEREE_TOE].error_exist],
+//			gimbal_can_send_data[0],
+//			chassis_can_send_data[0],
+//			sbus_rx_buf[0]
+//		);
 	}
 }
 

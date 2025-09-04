@@ -130,12 +130,14 @@ void gimbal_task(void const *pvParameters)
         {
             if (toe_is_error(DBUS_TOE))
             {
-                CAN_cmd_gimbal(0, 0, 0, 0);
+							CAN_cmd_GIMB_6020(0, 0, 0, 0);
+							CAN_cmd_GIMB_FP(0, 0, 0, 0);
             }
             else
             {
-                CAN_cmd_gimbal(yaw_can_set_current, pitch_can_set_current, shoot_can_set_current, 0);
-								HAL_IWDG_Refresh(&hiwdg);
+							CAN_cmd_GIMB_6020(yaw_can_set_current, pitch_can_set_current, 0, 0);
+							CAN_cmd_GIMB_FP(shoot_can_set_current, shoot_can_set_current, 0, 0);
+							HAL_IWDG_Refresh(&hiwdg);
             }
         }
 
