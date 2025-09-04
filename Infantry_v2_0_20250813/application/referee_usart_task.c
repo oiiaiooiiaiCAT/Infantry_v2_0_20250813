@@ -1,63 +1,42 @@
 /**
   ****************************(C) COPYRIGHT 2019 DJI****************************
-  * @file       referee_usart_task.c/h
-  * @brief      RM referee system data solve. RM裁判系统数据处理
-  * @note       
-  * @history
-  *  Version    Date            Author          Modification
-  *  V1.0.0     Nov-11-2019     RM              1. done
-  *
-  @verbatim
-  ==============================================================================
-
-  ==============================================================================
-  @endverbatim
-  ****************************(C) COPYRIGHT 2019 DJI****************************
-  */
+  * @file       referee_usart_task.c
+  * @brief      RM裁判系统数据处理
+	*
+	*     000000000000000     00               00    00     00   00         00 
+	*           00     0      00                00    00   00     00       00  
+	*       00  00000        00000000000000      00  000000000   00000000000000
+	*       00  00          00           00    00    000000000     00     00   
+	*      00000000000     00  000000    00     000     00           000000    
+	*     00    00   0000     00    00   00      00   000000           00      
+	*       00000000000       00    00   00           000000           00      
+	*       0   00    0       0000000 00 00       00    00       00000000000000
+	*       00000000000       00       000       00 00000000000        00      
+	*           00            00                000 00000000000        00      
+	*           00  00        00          0    000      00             00      
+	*      000000000000        00        000  000       00          00 00      
+	*       00        00        000000000000            00            00       
+	********************************************************************************/
+	
 #include "referee_usart_task.h"
 #include "main.h"
 #include "cmsis_os.h"
-
 #include "remote_control.h"
 #include "bsp_usart.h"
 #include "detect_task.h"
-
 #include "CRC8_CRC16.h"
 #include "fifo.h"
 #include "protocol.h"
 #include "referee.h"
 
 
-/**
-  * @brief          单字节解包
-  * @param[in]      void
-  * @retval         none
-  */
-static void referee_unpack_fifo_data(void);
-
 extern UART_HandleTypeDef huart6;
-uint8_t usart6_buf[2][USART_RX_BUF_LENGHT];
-fifo_s_t referee_fifo;
-uint8_t referee_fifo_buf[REFEREE_FIFO_BUF_LENGTH];
-unpack_data_t referee_unpack_obj;
 
-/**
-  * @brief          裁判系统任务
-  * @param[in]      pvParameters: NULL
-  * @retval         none
-  */
-void referee_usart_task(void const * argument)
-{
-	init_referee_data();
-	fifo_s_init(&referee_fifo, referee_fifo_buf, REFEREE_FIFO_BUF_LENGTH);
-	usart6_init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
+unpack_data_t referee_unpack_obj;		//裁判系统数据解包结构体变量
+fifo_s_t referee_fifo;							//裁判系统先进先出结构体变量
+uint8_t usart6_buf[2][USART_RX_BUF_LENGHT];					//串口接收双缓冲区数组
+uint8_t referee_fifo_buf[REFEREE_FIFO_BUF_LENGTH];	//从裁判系统获取的数据数组
 
-	while(1)
-	{
-		referee_unpack_fifo_data();
-		osDelay(10);
-	}
-}
 
 /**
   * @brief          单字节解包
@@ -70,7 +49,7 @@ void referee_unpack_fifo_data(void)
   uint8_t sof = HEADER_SOF;
   unpack_data_t *p_obj = &referee_unpack_obj;
 
-  while ( fifo_s_used(&referee_fifo) )
+  while(fifo_s_used(&referee_fifo))
   {
     byte = fifo_s_get(&referee_fifo);
     switch(p_obj->unpack_step)
@@ -110,6 +89,7 @@ void referee_unpack_fifo_data(void)
           p_obj->index = 0;
         }
       }break;
+			
       case STEP_FRAME_SEQ:
       {
         p_obj->protocol_packet[p_obj->index++] = byte;
@@ -161,6 +141,23 @@ void referee_unpack_fifo_data(void)
   }
 }
 
+/**
+  * @brief          裁判系统任务
+  * @param[in]      pvParameters: NULL
+  * @retval         none
+  */
+void referee_usart_task(void const * argument)
+{
+	init_referee_data();
+	fifo_s_init(&referee_fifo, referee_fifo_buf, REFEREE_FIFO_BUF_LENGTH);
+	usart6_init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
+
+	while(1)
+	{
+		referee_unpack_fifo_data();
+		osDelay(10);
+	}
+}
 
 static uint16_t this_time_rx_len = 0;
 

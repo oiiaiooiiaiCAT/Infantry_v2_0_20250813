@@ -67,6 +67,7 @@ typedef enum
   STEP_FRAME_SEQ   = 3,
   STEP_HEADER_CRC8 = 4,
   STEP_DATA_CRC16  = 5,
+	
 } unpack_step_e;
 
 typedef struct
@@ -76,6 +77,7 @@ typedef struct
   uint8_t        protocol_packet[REF_PROTOCOL_FRAME_MAX_SIZE];
   unpack_step_e  unpack_step;
   uint16_t       index;
+	
 } unpack_data_t;
 
 #pragma pack(pop)
